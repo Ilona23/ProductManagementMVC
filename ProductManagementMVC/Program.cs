@@ -2,8 +2,15 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ProductManagementMVC.Areas.Identity.Data;
 using ProductManagementMVC.Data;
+using ProductManagementMVC.Interfaces;
+using ProductManagementMVC.Mapping;
+using ProductManagementMVC.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("ProductManagementMVCContextConnection") ?? throw new InvalidOperationException("Connection string 'ProductManagementMVCContextConnection' not found.");
+
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IMapper<ProductManagementMVC.Entities.Category, ProductManagementMVC.Models.CategoryModel>, CategoryMapper>();
 
 builder.Services.AddDbContext<ProductManagementMVCContext>(options =>
     options.UseSqlServer(connectionString));
