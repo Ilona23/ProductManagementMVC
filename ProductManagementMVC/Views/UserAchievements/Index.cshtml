@@ -1,0 +1,38 @@
+﻿@model IEnumerable<ProductManagementMVC.Entities.UserAchievementsViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<h2>User Achievements</h2>
+
+<table class="table">
+    <thead>
+        <tr>   
+            <th>
+                @Html.DisplayNameFor(model => model.ApplicationUser.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quotes.FamousQuoteText)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Answer)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApplicationUser.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quotes.FamousQuoteText)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Answer)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

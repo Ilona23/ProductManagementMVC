@@ -17,13 +17,24 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+               @*  @if (User.IsInRole("Admin"))
+                {*@
+                    <p> <a class="nav-link" asp-controller="FamousQuote" asp-action="index"> Quotes </a> </p>
+                    <p> <a class="nav-link" asp-controller="ApplicationUser" asp-action="userslist"> Users </a> </p>
+                    <p> <a class="nav-link" asp-controller="Administration" asp-action="listRoles"> Roles </a> </p>
+                @*}*@
+                <p> <a class="nav-link" asp-controller="UserAchievements" asp-action="index">  User Achievements </a> </p>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Category" asp-action="Index">Category</a>
                         </li>
                     </ul>
                 </div>

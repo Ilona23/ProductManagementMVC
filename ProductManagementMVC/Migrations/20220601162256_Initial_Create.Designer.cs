@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProductManagementMVC.Data;
 
@@ -11,9 +12,10 @@ using ProductManagementMVC.Data;
 namespace ProductManagementMVC.Migrations
 {
     [DbContext(typeof(ProductManagementMVCContext))]
-    partial class ProductManagementMVCContextModelSnapshot : ModelSnapshot
+    [Migration("20220601162256_Initial_Create")]
+    partial class Initial_Create
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -262,30 +264,6 @@ namespace ProductManagementMVC.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("ProductManagementMVC.Entities.FamousQuoteViewModel", b =>
-                {
-                    b.Property<int>("QuoteId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("QuoteId"), 1L, 1);
-
-                    b.Property<string>("FamousQuoteAuthor")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("FamousQuoteText")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<bool>("IsCorrect")
-                        .HasColumnType("bit");
-
-                    b.HasKey("QuoteId");
-
-                    b.ToTable("FamousQuotes");
-                });
-
             modelBuilder.Entity("ProductManagementMVC.Entities.Subject", b =>
                 {
                     b.Property<int>("Id")
@@ -306,31 +284,6 @@ namespace ProductManagementMVC.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Subjects");
-                });
-
-            modelBuilder.Entity("ProductManagementMVC.Entities.UserAchievementsViewModel", b =>
-                {
-                    b.Property<int>("QuoteId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<bool>("Answer")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("ApplicationUserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("QuoteId", "UserId");
-
-                    b.HasIndex("ApplicationUserId");
-
-                    b.ToTable("UserAchievements");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -393,30 +346,6 @@ namespace ProductManagementMVC.Migrations
                         .IsRequired();
 
                     b.Navigation("Subject");
-                });
-
-            modelBuilder.Entity("ProductManagementMVC.Entities.UserAchievementsViewModel", b =>
-                {
-                    b.HasOne("ProductManagementMVC.Areas.Identity.Data.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ProductManagementMVC.Entities.FamousQuoteViewModel", "Quotes")
-                        .WithMany("UserAchievements")
-                        .HasForeignKey("QuoteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ApplicationUser");
-
-                    b.Navigation("Quotes");
-                });
-
-            modelBuilder.Entity("ProductManagementMVC.Entities.FamousQuoteViewModel", b =>
-                {
-                    b.Navigation("UserAchievements");
                 });
 #pragma warning restore 612, 618
         }

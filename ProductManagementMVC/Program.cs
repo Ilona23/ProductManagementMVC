@@ -2,6 +2,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ProductManagementMVC.Areas.Identity.Data;
 using ProductManagementMVC.Data;
+using ProductManagementMVC.Interfaces;
+using ProductManagementMVC.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("ProductManagementMVCContextConnection") ?? throw new InvalidOperationException("Connection string 'ProductManagementMVCContextConnection' not found.");
 
@@ -9,7 +12,9 @@ builder.Services.AddDbContext<ProductManagementMVCContext>(options =>
     options.UseSqlServer(connectionString));
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ProductManagementMVCContext>();;
+    .AddEntityFrameworkStores<ProductManagementMVCContext>();
+
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

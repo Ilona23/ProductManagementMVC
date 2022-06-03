@@ -1,0 +1,77 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@using ProductManagementMVC.Areas.Identity.Data
+@using ProductManagementMVC.Entities
+@inject SignInManager<ApplicationUser> SignInManager
+@model PaginatedList<ProductManagementMVC.Entities.FamousQuoteViewModel>
+@{
+    ViewData["Title"] = "StartQuiz";
+}
+<h2>Who Said It?</h2>
+<div>
+    <hr />
+    <table class="table">
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <p>
+                    @Html.DisplayFor(modelItem => item.FamousQuoteText)
+                <p />  
+                <p>
+                    @Html.DisplayFor(modelItem => item.FamousQuoteAuthor)
+                </p>
+                <form method="post" asp-route-Id=""
+                        asp-route-QuoteId="@item.QuoteId"
+                        asp-route-Answer="True"
+                        asp-route-UserId=""
+                        asp-route-PageNumber="@(Model.PageIndex)"
+                        asp-route-PageSize="@(Model.TotalPages)"
+                        asp-route-ApplicationUserId=""
+                        asp-route-QuotesQuoteID="@item.QuoteId"
+                        asp-controller="UserAchievements" asp-action="Answer">
+                    <button type="submit" style="width:auto;" class="btn btn-success"> Yes </button>
+                </form>
+         
+                <form method="post" asp-route-Id=""
+                        asp-route-QuoteId="@item.QuoteId"
+                        asp-route-Answer="False"
+                        asp-route-UserId=""
+                        asp-route-PageNumber="@(Model.PageIndex)"
+                        asp-route-PageSize="@(Model.TotalPages)"
+                        asp-route-ApplicationUserId=""
+                        asp-route-QuotesQuoteID="@item.QuoteId"
+                        asp-controller="UserAchievements" asp-action="Answer">
+                    <button type="submit" style="width:auto; margin: 30px 35px;" class="btn btn-danger"> No </button>
+                </form>            
+             </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<div style="text-align: center;">
+    <a asp-action="StartQuiz"
+       asp-route-sortOrder="@ViewData["CurrentSort"]"
+       asp-route-pageNumber="@(Model.PageIndex - 1)"
+       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+       class="btn btn-default @prevDisabled">
+        Previous
+    </a>
+    <a asp-action="StartQuiz"
+       asp-route-sortOrder="@ViewData["CurrentSort"]"
+       asp-route-pageNumber="@(Model.PageIndex + 1)"
+       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+       class="btn btn-default @nextDisabled">
+        Next
+    </a>
+
+</div>
+
+
+
+

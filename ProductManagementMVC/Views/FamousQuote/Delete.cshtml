@@ -1,0 +1,39 @@
+﻿@model ProductManagementMVC.Entities.FamousQuoteViewModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>FamousQuoteViewModel</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FamousQuoteText)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FamousQuoteText)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FamousQuoteAuthor)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FamousQuoteAuthor)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IsCorrect)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IsCorrect)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="QuoteId" />
+        <input type="submit" value="Delete" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-secondary btn-block"> <i class="fa fa-table"></i> Back to List</a>
+    </form>
+</div>

@@ -1,0 +1,43 @@
+﻿@model ProductManagementMVC.Entities.FamousQuoteViewModel
+@{
+    ViewData["Title"] = "Edit";
+}
+<h2>Edit</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="QuoteId" />
+            <div class="form-group">
+                <label asp-for="FamousQuoteText" class="control-label"></label>
+                <input asp-for="FamousQuoteText" class="form-control" />
+                <span asp-validation-for="FamousQuoteText" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FamousQuoteAuthor" class="control-label"></label>
+                <input asp-for="FamousQuoteAuthor" class="form-control" />
+                <span asp-validation-for="FamousQuoteAuthor" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsCorrect" /> @Html.DisplayNameFor(model => model.IsCorrect)
+                </label>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-warning" />
+                </div>
+
+                <div class="form-group col-md-6">
+                    <a asp-action="Index" class="btn btn-secondary btn-block"><i class="fa fa-table"></i> Back to List</a>
+                </div>
+            </div>           
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

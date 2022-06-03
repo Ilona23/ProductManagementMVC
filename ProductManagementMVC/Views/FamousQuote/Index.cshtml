@@ -1,0 +1,80 @@
+﻿@using ProductManagementMVC.Entities
+@*@model IEnumerable<FamousQuoteQuiz_IA.Models.FamousQuoteViewModel>*@
+
+@model PaginatedList<ProductManagementMVC.Entities.FamousQuoteViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<h2>Quotes</h2>
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            <input type="text" name="SearchString" style="width: 650px" ; "text-align:right"  value="@ViewData["CurrentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-outline-info" />
+            <a asp-action="Index" class="btn btn-secondary"> Back to List</a>
+        </p>
+    </div>
+</form>
+
+<table class="table" >
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["QuoteSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Quote</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["AuthorSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Author</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["IsCorrectSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Correct</a>
+            </th>
+            <th>
+                <a asp-action="Create" class="btn btn-success">New Quote</a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FamousQuoteText)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FamousQuoteAuthor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsCorrect)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.QuoteId" class="btn btn-warning">Edit</a>
+                <a asp-action="Details" asp-route-id="@item.QuoteId" class="btn btn-info">Details</a>
+                <a asp-action="Delete" asp-route-id="@item.QuoteId" class="btn btn-danger" onclick="return confirm('Are you sure to delete this record?')">Delete</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+<div style="text-align: center;">
+    <a asp-action="Index"
+       asp-route-sortOrder="@ViewData["CurrentSort"]"
+       asp-route-pageNumber="@(Model.PageIndex - 1)"
+       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+       class="btn btn-default @prevDisabled">
+        Previous
+    </a>
+    <a asp-action="Index"
+       asp-route-sortOrder="@ViewData["CurrentSort"]"
+       asp-route-pageNumber="@(Model.PageIndex + 1)"
+       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+       class="btn btn-default @nextDisabled">
+        Next
+    </a>
+</div>
