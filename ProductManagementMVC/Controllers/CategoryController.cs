@@ -14,9 +14,9 @@ namespace ProductManagementMVC.Controllers
             _categoryService = categoryService;
         }
 
-        public IActionResult AllCategories()
+        public IActionResult AllCategories(string currentFilter, string searchString)
         {
-            IEnumerable<Category> categories = _categoryService.GetCategories();
+            IEnumerable<Category> categories = _categoryService.GetCategories(searchString);
             return View(categories);
         }
 
