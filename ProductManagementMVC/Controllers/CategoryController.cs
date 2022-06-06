@@ -29,8 +29,7 @@ namespace ProductManagementMVC.Controllers
         string searchString,
         int? pageNumber)
         {
-            ViewData["SortOrder"] = sortOrder;
-            ViewData["NameParm"] = String.IsNullOrEmpty(sortOrder) ? "Name_desc" : "";
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "Name_desc" : "";
             ViewData["CodeSortParm"] = sortOrder == "Code" ? "Code_desc" : "Code";
             ViewData["DescriptionSortParm"] = sortOrder == "Description" ? "Description_desc" : "Description";
 
@@ -58,10 +57,22 @@ namespace ProductManagementMVC.Controllers
                     objCategoryList = objCategoryList.OrderByDescending(s => s.Name);
                     break;
                 case "Code_desc":
-                    objCategoryList = objCategoryList.OrderBy(s => s.Code);
+                    objCategoryList = objCategoryList.OrderByDescending(s => s.Code);
                     break;
                 case "Description_desc":
+                    objCategoryList = objCategoryList.OrderByDescending(s => s.Description);
+                    break;
+                case "Name":
+                    objCategoryList = objCategoryList.OrderBy(s => s.Name);
+                    break;
+                case "Code":
+                    objCategoryList = objCategoryList.OrderBy(s => s.Code);
+                    break;
+                case "Description":
                     objCategoryList = objCategoryList.OrderBy(s => s.Description);
+                    break;
+                default:
+                    objCategoryList = objCategoryList.OrderBy(s => s.Name);
                     break;
             }
 
